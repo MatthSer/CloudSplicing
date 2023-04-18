@@ -26,12 +26,12 @@ if __name__ == '__main__':
         os.makedirs(args.output_path)
 
     # Convert float32 to uint8 for IPOL
-    cloudy_image = splicing_functions.convert_float32_to_uint8(cloudy_image)
-    background = splicing_functions.convert_float32_to_uint8(background)
-    source = splicing_functions.convert_float32_to_uint8(source)
+    cloudy_image = splicing_functions.convert_float32_to_uint8(cloudy_image.astype(int))
+    background = splicing_functions.convert_float32_to_uint8(background.astype(int))
+    source = splicing_functions.convert_float32_to_uint8(source.astype(int))
     mask = mask * 255
 
-    tifffile.imwrite('output/cloudy.png', cloudy_image)
-    tifffile.imwrite('output/background.png', background)
-    tifffile.imwrite('output/mask.png', mask)
-    tifffile.imwrite('output/source.png', source)
+    tifffile.imwrite('output/cloudy.png', cloudy_image.astype(np.uint8))
+    tifffile.imwrite('output/background.png', background.astype(np.uint8))
+    tifffile.imwrite('output/mask.png', mask.astype(np.uint8))
+    tifffile.imwrite('output/source.png', source.astype(np.uint8))
