@@ -115,7 +115,7 @@ def splice_cloud(background, cloud_image, mask):
             shadows_bg = add_shadows(bg_channel, cloud, 100, np.pi / 4, 0.05)
 
             # Copy the cloud into the background image
-            cloudy_channel = cloud_channel * ((cloud-0.3) * 2) + shadows_bg * (1 - cloud)
+            cloudy_channel = cloud_channel * cloud + shadows_bg * (1 - cloud)
             cloudy_background.append(cloudy_channel)
         cloudy_background = np.stack(cloudy_background, axis=2)
 
