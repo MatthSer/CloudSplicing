@@ -119,23 +119,23 @@ def splice_cloud(background, cloud_image, mask):
             cloudy_background.append(cloudy_channel)
         cloudy_background = np.stack(cloudy_background, axis=2)
 
-    else:
-        bg_channel = background
-        cloud_channel = cloud_image
-
-        mask_cloud_conv = (conv(mask, 5, None) > 0.9).astype(np.float32)
-        cloud_channel_ma, mask_cloud_conv = ma.array(cloud_channel, mask=np.zeros_like(mask_cloud_conv)), ma.array(
-            mask_cloud_conv,
-            mask=np.zeros_like(mask_cloud_conv))
-        cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, 16, 0.01)
-        cloud = (cloud_alpha.data - np.min(cloud_alpha.data)) / (
-                np.max(cloud_alpha.data) - np.min(cloud_alpha.data)) * 1.2
-
-        # Add some shadows before adding clouds
-        shadows_bg = add_shadows(bg_channel, cloud, 100, np.pi / 4, 0.05)
-
-        # Copy the cloud into the background image
-        cloudy_background = cloud_channel * cloud + shadows_bg * (1 - cloud)
+    # else:
+    #     bg_channel = background
+    #     cloud_channel = cloud_image
+    #
+    #     mask_cloud_conv = (conv(mask, 5, None) > 0.9).astype(np.float32)
+    #     cloud_channel_ma, mask_cloud_conv = ma.array(cloud_channel, mask=np.zeros_like(mask_cloud_conv)), ma.array(
+    #         mask_cloud_conv,
+    #         mask=np.zeros_like(mask_cloud_conv))
+    #     cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, 16, 0.01)
+    #     cloud = (cloud_alpha.data - np.min(cloud_alpha.data)) / (
+    #             np.max(cloud_alpha.data) - np.min(cloud_alpha.data)) * 1.2
+    #
+    #     # Add some shadows before adding clouds
+    #     shadows_bg = add_shadows(bg_channel, cloud, 100, np.pi / 4, 0.05)
+    #
+    #     # Copy the cloud into the background image
+    #     cloudy_background = cloud_channel * cloud + shadows_bg * (1 - cloud)
 
     return cloudy_background, mask
 

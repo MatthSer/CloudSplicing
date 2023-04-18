@@ -24,4 +24,4 @@ if __name__ == '__main__':
     # Save output
     if not os.path.exists(args.output_path):
         os.makedirs(args.output_path)
-    iio.imwrite(args.output_path + 'cloudy.tif', cloudy_image)
+    iio.imwrite('output/cloudy.tif', cloudy_image)
