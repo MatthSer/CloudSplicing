@@ -139,3 +139,8 @@ def splice_cloud(background, cloud_image, mask):
 
     return cloudy_background, mask
 
+def convert_float32_to_uint8(img):
+    new_range = int(img / np.percentile(img, 99) * 255)
+    new_range = new_range[:, :, ::-1]
+
+    return new_range

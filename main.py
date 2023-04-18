@@ -24,4 +24,14 @@ if __name__ == '__main__':
     # Save output
     if not os.path.exists(args.output_path):
         os.makedirs(args.output_path)
+
+    # Convert float32 to uint8 for IPOL
+    cloudy_image = splicing_functions.convert_float32_to_uint8(cloudy_image)
+    background = splicing_functions.convert_float32_to_uint8(background)
+    source = splicing_functions.convert_float32_to_uint8(source)
+    mask = int(mask * 255)
+
     tifffile.imwrite('output/cloudy.tif', cloudy_image)
+    tifffile.imwrite('output/background.tif', background)
+    tifffile.imwrite('output/mask.png', mask)
+    tifffile.imwrite('output/source.tif', source)

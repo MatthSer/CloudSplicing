@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2705aa24-22e5-43a8-a08d-4743aabbd3f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splicing_functions/splicing_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/splicing_functions/splicing_functions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681810517254</updated>
-      <workItem from="1681810521010" duration="8209000" />
+      <workItem from="1681810521010" duration="8472000" />
     </task>
     <servers />
   </component>
