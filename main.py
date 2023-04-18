@@ -31,7 +31,7 @@ if __name__ == '__main__':
     source = splicing_functions.convert_float32_to_uint8(source)
     mask = int(mask * 255)
 
-    tifffile.imwrite('output/cloudy.tif', cloudy_image)
-    tifffile.imwrite('output/background.tif', background)
+    tifffile.imwrite('output/cloudy.png', cloudy_image)
+    tifffile.imwrite('output/background.png', background)
     tifffile.imwrite('output/mask.png', mask)
-    tifffile.imwrite('output/source.tif', source)
+    tifffile.imwrite('output/source.png', source)
