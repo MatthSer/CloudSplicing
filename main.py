@@ -21,17 +21,30 @@ if __name__ == '__main__':
     mask = tifffile.imread(args.splicing_mask).astype(np.float32)
     cloudy_image, mask = splicing_functions.splice_cloud(background, source, mask)
 
+    # Create visual blobs
+    # background_8bits = splicing_functions.convert_float32_to_uint8(background)
+    # source_8bits = splicing_functions.convert_float32_to_uint8(source)
+    # iio.imwrite('input/bg_8bit.png', background_8bits)
+    # iio.imwrite('input/source_8bit.png', source_8bits)
+    # iio.imwrite('input/mask.png', mask*255)
+
     # Save output
     if not os.path.exists(args.output_path):
         os.makedirs(args.output_path)
 
     # Convert float32 to uint8 for IPOL
-    cloudy_image = splicing_functions.convert_float32_to_uint8(cloudy_image.astype(int))
-    background = splicing_functions.convert_float32_to_uint8(background.astype(int))
-    source = splicing_functions.convert_float32_to_uint8(source.astype(int))
+    cloudy_image_8bits = splicing_functions.convert_float32_to_uint8(cloudy_image)
+    background_8bits = splicing_functions.convert_float32_to_uint8(background)
+    source_8bits = splicing_functions.convert_float32_to_uint8(source)
     mask = mask * 255
 
-    tifffile.imwrite('output/cloudy.png', cloudy_image.astype(np.uint8))
-    tifffile.imwrite('output/background.png', background.astype(np.uint8))
+    # Save 8 bits for display in IPOL
+    tifffile.imwrite('output/cloudy.png', cloudy_image_8bits.astype(np.uint8))
+    tifffile.imwrite('output/background.png', background_8bits.astype(np.uint8))
     tifffile.imwrite('output/mask.png', mask.astype(np.uint8))
-    tifffile.imwrite('output/source.png', source.astype(np.uint8))
+    tifffile.imwrite('output/source.png', source_8bits.astype(np.uint8))
+
+    # Save 16 bits for download in IPOL
+    tifffile.imwrite('output/cloudy_16bits.tif', cloudy_image.astype(np.uint16))
+    tifffile.imwrite('output/background_16bits.tif', background.astype(np.uint16))
+    tifffile.imwrite('output/source_16bits.tif', source.astype(np.uint16))
