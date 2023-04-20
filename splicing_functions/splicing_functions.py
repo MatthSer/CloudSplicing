@@ -95,7 +95,7 @@ def add_shadows(img, mask, radius, theta, light_intensity):
     return shadows
 
 
-def splice_cloud(background, cloud_image, mask):
+def splice_cloud(background, cloud_image, mask, conv_size, radius, epsilon):
 
     if len(background.shape) > 2:
         cloudy_background = []
@@ -103,11 +103,11 @@ def splice_cloud(background, cloud_image, mask):
             bg_channel = background[:, :, channel_idx]
             cloud_channel = cloud_image[:, :, channel_idx]
 
-            mask_cloud_conv = (conv(mask, 5, None) > 0.9).astype(np.float32)
+            mask_cloud_conv = (conv(mask, conv_size, None) > 0.9).astype(np.float32)
             cloud_channel_ma, mask_cloud_conv = ma.array(cloud_channel, mask=np.zeros_like(mask_cloud_conv)), ma.array(
                 mask_cloud_conv,
                 mask=np.zeros_like(mask_cloud_conv))
-            cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, 16, 0.01)
+            cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, radius, epsilon)
             cloud = (cloud_alpha.data - np.min(cloud_alpha.data)) / (
                     np.max(cloud_alpha.data) - np.min(cloud_alpha.data)) * 1.2
 
@@ -123,11 +123,11 @@ def splice_cloud(background, cloud_image, mask):
         bg_channel = background
         cloud_channel = cloud_image
 
-        mask_cloud_conv = (conv(mask, 5, None) > 0.9).astype(np.float32)
+        mask_cloud_conv = (conv(mask, conv_size, None) > 0.9).astype(np.float32)
         cloud_channel_ma, mask_cloud_conv = ma.array(cloud_channel, mask=np.zeros_like(mask_cloud_conv)), ma.array(
             mask_cloud_conv,
             mask=np.zeros_like(mask_cloud_conv))
-        cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, 16, 0.01)
+        cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, radius, epsilon)
         cloud = (cloud_alpha.data - np.min(cloud_alpha.data)) / (
                 np.max(cloud_alpha.data) - np.min(cloud_alpha.data)) * 1.2
 
