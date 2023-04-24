@@ -1,6 +1,7 @@
 import os
 
-import imageio as iio
+import imageio
+import iio
 import numpy as np
 import tifffile
 
@@ -9,9 +10,9 @@ import argparse
 
 def main(background, source, mask, conv_size, radius, epsilon):
     # Load image and add clouds to an image
-    background = iio.imread(background).astype(np.float32)
-    source = iio.imread(source).astype(np.float32)
-    mask = tifffile.imread(mask).astype(np.float32)
+    background = iio.read(background).astype(np.float32)
+    source = iio.read(source).astype(np.float32)
+    mask = imageio.imread(mask).astype(np.float32)
     cloudy_image, mask = splicing_functions.splice_cloud(background, source, mask, conv_size, radius, epsilon)
 
     # Create visual blobs
@@ -32,15 +33,15 @@ def main(background, source, mask, conv_size, radius, epsilon):
     mask = mask * 255
 
     # Save 8 bits for display in IPOL
-    tifffile.imwrite('output/cloudy.png', cloudy_image_8bits.astype(np.uint8))
-    tifffile.imwrite('output/background.png', background_8bits.astype(np.uint8))
-    tifffile.imwrite('output/mask.png', mask.astype(np.uint8))
-    tifffile.imwrite('output/source.png', source_8bits.astype(np.uint8))
+    iio.write('output/cloudy.png', cloudy_image_8bits.astype(np.uint8))
+    iio.write('output/background.png', background_8bits.astype(np.uint8))
+    iio.write('output/mask.png', mask.astype(np.uint8))
+    iio.write('output/source.png', source_8bits.astype(np.uint8))
 
     # Save 16 bits for download in IPOL
-    tifffile.imwrite('output/cloudy_16bits.tif', cloudy_image.astype(np.uint16))
-    tifffile.imwrite('output/background_16bits.tif', background.astype(np.uint16))
-    tifffile.imwrite('output/source_16bits.tif', source.astype(np.uint16))
+    iio.write('output/cloudy_16bits.tif', cloudy_image.astype(np.uint16))
+    iio.write('output/background_16bits.tif', background.astype(np.uint16))
+    iio.write('output/source_16bits.tif', source.astype(np.uint16))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='run Haar Wavelet blur detection with SVD on an image')
