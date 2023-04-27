@@ -99,17 +99,20 @@ def splice_cloud(background, cloud_image, mask, conv_size, radius, epsilon):
 
     if len(background.shape) > 2:
         cloudy_background = []
+
+        # Alpha matting only on grey level image
+        lumi_cloud = luminance(cloud_image)
+        mask_cloud_conv = (conv(mask, conv_size, None) > 0.9).astype(np.float32)
+        lumi_cloud_ma, mask_cloud_conv = ma.array(lumi_cloud, mask=np.zeros_like(mask_cloud_conv)), ma.array(
+            mask_cloud_conv,
+            mask=np.zeros_like(mask_cloud_conv))
+        cloud_alpha = filter_with_guide(mask_cloud_conv, lumi_cloud_ma, radius, epsilon)
+        cloud = (cloud_alpha.data - np.min(cloud_alpha.data)) / (
+                np.max(cloud_alpha.data) - np.min(cloud_alpha.data)) * 1.2
+
         for channel_idx in range(background.shape[2]):
             bg_channel = background[:, :, channel_idx]
             cloud_channel = cloud_image[:, :, channel_idx]
-
-            mask_cloud_conv = (conv(mask, conv_size, None) > 0.9).astype(np.float32)
-            cloud_channel_ma, mask_cloud_conv = ma.array(cloud_channel, mask=np.zeros_like(mask_cloud_conv)), ma.array(
-                mask_cloud_conv,
-                mask=np.zeros_like(mask_cloud_conv))
-            cloud_alpha = filter_with_guide(mask_cloud_conv, cloud_channel_ma, radius, epsilon)
-            cloud = (cloud_alpha.data - np.min(cloud_alpha.data)) / (
-                    np.max(cloud_alpha.data) - np.min(cloud_alpha.data)) * 1.2
 
             # Add some shadows before adding clouds
             shadows_bg = add_shadows(bg_channel, cloud, 100, np.pi / 4, 0.05)
@@ -144,11 +147,19 @@ def convert_float32_to_uint8(img):
     if len(img.shape) > 2:
         rescale = []
         for i in range(img.shape[2]):
-            channel = img[:, :, i] / np.max(img[:, :, i]) * 255
+            channel = img[:, :, i] / np.percentile(img, 99) * 255
+            channel[channel > 255] = 255
             rescale.append(channel)
         rescale = np.stack(rescale, axis=2)
     else:
-        rescale = img / np.max(img) * 255
+        rescale = img / np.percentile(img, 99) * 255
         rescale = rescale[:, :]
 
     return rescale.astype(int)
+
+def luminance(img):
+    red = img[:, :, 0]
+    green = img[:, :, 1]
+    blue = img[:, :, 2]
+
+    return (.299 * red) + (.587 * green) + (.114 * blue)
