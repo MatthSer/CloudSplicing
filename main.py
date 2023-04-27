@@ -18,9 +18,9 @@ def main(background, source, mask, conv_size, radius, epsilon):
     # Create visual blobs
     # background_8bits = splicing_functions.convert_float32_to_uint8(background)
     # source_8bits = splicing_functions.convert_float32_to_uint8(source)
-    iio.write('input/bg_log.png', np.log(background))
-    iio.write('input/source_log.png', np.log(source))
-    iio.write('input/mask.png', mask*255)
+    # iio.write('input/bg_log.png', np.log(background))
+    # iio.write('input/source_log.png', np.log(source))
+    # iio.write('input/mask.png', mask*255)
 
     # Save output
     if not os.path.exists('output/'):
