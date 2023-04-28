@@ -1,58 +1,28 @@
-import os
-
-import imageio
-import iio
-import numpy as np
-import tifffile
-
 from splicing_functions import splicing_functions
+from CloudPerlin import CloudPerlin
 import argparse
 
-def main(background, source, mask, conv_size, radius, epsilon):
-    # Load image and add clouds to an image
-    background = iio.read(background).astype(np.float32)
-    source = iio.read(source).astype(np.float32)
-    mask = imageio.imread(mask).astype(np.float32)
-    cloudy_image, mask = splicing_functions.splice_cloud(background, source, mask, conv_size, radius, epsilon)
 
-    # Create visual blobs
-    # background_8bits = splicing_functions.convert_float32_to_uint8(background)
-    # source_8bits = splicing_functions.convert_float32_to_uint8(source)
-    # iio.write('input/bg_log.png', np.log(background))
-    # iio.write('input/source_log.png', np.log(source))
-    # iio.write('input/mask.png', mask*255)
+def main(background, source, mask, conv_size, radius, epsilon, res, octave, mode):
+    if mode == 0:  # Splice cloud from a real one
+        splicing_functions.spliceCloudFromMask(background, source, mask, conv_size, radius, epsilon)
+    elif mode == 1:  # Fully generated cloud
+        CloudPerlin.spliceCloudFromGenertedMask(background, res, octave)
 
-    # Save output
-    if not os.path.exists('output/'):
-        os.makedirs('output/')
-
-    # Convert float32 to uint8 for IPOL
-    cloudy_image_8bits = splicing_functions.convert_float32_to_uint8(cloudy_image)
-    background_8bits = splicing_functions.convert_float32_to_uint8(background)
-    source_8bits = splicing_functions.convert_float32_to_uint8(source)
-    mask = mask * 255
-
-    # Save 8 bits for display in IPOL
-    iio.write('output/cloudy.png', cloudy_image_8bits.astype(np.uint8))
-    iio.write('output/background.png', background_8bits.astype(np.uint8))
-    iio.write('output/mask.png', mask.astype(np.uint8))
-    iio.write('output/source.png', source_8bits.astype(np.uint8))
-
-    # Save 16 bits for download in IPOL
-    iio.write('output/cloudy_16bits.tif', cloudy_image.astype(np.uint16))
-    iio.write('output/background_16bits.tif', background.astype(np.uint16))
-    iio.write('output/source_16bits.tif', source.astype(np.uint16))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='run Haar Wavelet blur detection with SVD on an image')
-    parser.add_argument('-i', '--input_background', dest='input_background', type=str, required=True, help='image input background')
-    parser.add_argument('-o', '--output_path', dest='output_path', type=str, default='output/', required=False, help="path to save output")
+    parser.add_argument('-i', '--input_background', dest='input_background', type=str, required=True,
+                        help='image input background')
     parser.add_argument('-s', '--splicing_source', dest='splicing_source', type=str, help="splicing source")
-    parser.add_argument('-m', '--splicing_mask', dest='splicing_mask', type=str, help="splicing mask")
+    parser.add_argument('-mask', '--splicing_mask', dest='splicing_mask', type=str, help="splicing mask")
     parser.add_argument('-c', '--conv_size', dest='conv_size', type=int, default=5, help="Convolution size")
-    parser.add_argument('-r', '--radius', dest='radius', type=int, default=16, help="Radius")
+    parser.add_argument('-rad', '--radius', dest='radius', type=int, default=16, help="Radius")
     parser.add_argument('-e', '--epsilon', dest='epsilon', type=float, default=0.01, help="Epsilon")
+    parser.add_argument('-o', '--octave', dest='octave', type=int, default=7, help="octave noise parameter")
+    parser.add_argument('-r', '--res', dest='res', type=int, default=2, help="res noise parameter")
+    parser.add_argument('-mode', '--mode', dest='mode', type=int, default=1, help="which mode you want to use")
     args = parser.parse_args()
 
-    main(args.input_background, args.splicing_source, args.splicing_mask, args.conv_size, args.radius, args.epsilon)
-
+    main(args.input_background, args.splicing_source, args.splicing_mask, args.conv_size, args.radius, args.epsilon,
+         args.res, args.octave, args.mode)

@@ -1,7 +1,9 @@
 import numpy as np
 import tifffile
-import imageio as iio
+import iio
+import imageio
 import random
+import os
 
 from numpy import ma
 
@@ -147,7 +149,7 @@ def convert_float32_to_uint8(img):
     if len(img.shape) > 2:
         rescale = []
         for i in range(img.shape[2]):
-            channel = img[:, :, i] / np.percentile(img, 99) * 255
+            channel = np.sqrt(img[:, :, i]) / np.percentile(np.sqrt(img), 99) * 255
             channel[channel > 255] = 255
             rescale.append(channel)
         rescale = np.stack(rescale, axis=2)
@@ -163,3 +165,32 @@ def luminance(img):
     blue = img[:, :, 2]
 
     return (.299 * red) + (.587 * green) + (.114 * blue)
+
+def spliceCloudFromMask(background, source, mask, conv_size, radius, epsilon):
+
+    # Load image and add clouds to an image
+    background = iio.read(background).astype(np.float32)
+    source = iio.read(source).astype(np.float32)
+    mask = imageio.imread(mask).astype(np.float32)
+    cloudy_image, mask = splice_cloud(background, source, mask, conv_size, radius, epsilon)
+
+    # Save output
+    if not os.path.exists('output_splice/'):
+        os.makedirs('output_splice/')
+
+    # Convert float32 to uint8 for IPOL
+    cloudy_image_8bits = convert_float32_to_uint8(cloudy_image)
+    background_8bits = convert_float32_to_uint8(background)
+    source_8bits = convert_float32_to_uint8(source)
+    mask = mask * 255
+
+    # Save 8 bits for display in IPOL
+    iio.write('output_splice/cloudy.png', cloudy_image_8bits.astype(np.uint8))
+    iio.write('output_splice/background.png', background_8bits.astype(np.uint8))
+    iio.write('output_splice/mask.png', mask.astype(np.uint8))
+    iio.write('output_splice/source.png', source_8bits.astype(np.uint8))
+
+    # Save 16 bits for download in IPOL
+    iio.write('output_splice/cloudy_16bits.tif', cloudy_image.astype(np.uint16))
+    iio.write('output_splice/background_16bits.tif', background.astype(np.uint16))
+    iio.write('output_splice/source_16bits.tif', source.astype(np.uint16))
