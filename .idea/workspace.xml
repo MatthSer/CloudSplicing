@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2705aa24-22e5-43a8-a08d-4743aabbd3f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CloudPerlin/CloudPerlin.py" beforeDir="false" afterPath="$PROJECT_DIR$/CloudPerlin/CloudPerlin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/splicing_functions/splicing_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/splicing_functions/splicing_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/cloudy.png" beforeDir="false" afterPath="$PROJECT_DIR$/output/cloudy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/source.png" beforeDir="false" afterPath="$PROJECT_DIR$/output/source.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681810517254</updated>
       <workItem from="1681810521010" duration="22205000" />
-      <workItem from="1683280073975" duration="635000" />
+      <workItem from="1683280073975" duration="887000" />
     </task>
     <servers />
   </component>
@@ -104,6 +104,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CloudSplicing$main.coverage" NAME="main Coverage Results" MODIFIED="1683280287304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CloudSplicing$main.coverage" NAME="main Coverage Results" MODIFIED="1683281070640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
