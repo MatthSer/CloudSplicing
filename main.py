@@ -4,9 +4,9 @@ import argparse
 
 
 def main(background, source, mask, conv_size, radius, epsilon, res, octave, mode):
-    if mode == 0:  # Splice cloud from a real one
+    if mode == 'false':  # Splice cloud from a real one
         splicing_functions.spliceCloudFromMask(background, source, mask, conv_size, radius, epsilon)
-    elif mode == 1:  # Fully generated cloud
+    else:  # Fully generated cloud
         CloudPerlin.spliceCloudFromGenertedMask(background, res, octave)
 
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--epsilon', dest='epsilon', type=float, default=0.01, help="Epsilon")
     parser.add_argument('-o', '--octave', dest='octave', type=int, default=7, help="octave noise parameter")
     parser.add_argument('-r', '--res', dest='res', type=int, default=2, help="res noise parameter")
-    parser.add_argument('-mode', '--mode', dest='mode', type=bool, default=0, help="which mode you want to use")
+    parser.add_argument('-mode', '--mode', dest='mode', type=str, default='false', help="which mode you want to use")
     args = parser.parse_args()
 
     main(args.input_background, args.splicing_source, args.splicing_mask, args.conv_size, args.radius, args.epsilon,
