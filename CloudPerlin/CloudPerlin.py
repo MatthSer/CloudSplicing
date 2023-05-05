@@ -129,11 +129,11 @@ def spliceCloudFromGenertedMask(input, res, octave):
     cloudy_8bits = convert_float32_to_uint8(cloudy)
 
     # Save display outputs
-    iio.write('output_generated/background.png', u_8bits)
-    iio.write('output_generated/cloud.png', (cloud_crop * 255).astype(np.uint8))
-    iio.write('output_generated/cloudy.png', cloudy_8bits)
+    iio.write('output/background.png', u_8bits)
+    iio.write('output/mask.png', (cloud_crop * 255).astype(np.uint8))
+    iio.write('output/cloudy.png', cloudy_8bits)
 
     # Save download outputs
-    iio.write('output_generated/background.tif', u)
-    iio.write('output_generated/cloud.tif', cloud_crop)
-    iio.write('output_generated/cloudy.tif', cloudy.astype(np.uint16))
+    iio.write('output/background.tif', u)
+    iio.write('output/mask.tif', cloud_crop)
+    iio.write('output/cloudy.tif', cloudy.astype(np.uint16))

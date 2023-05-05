@@ -175,8 +175,8 @@ def spliceCloudFromMask(background, source, mask, conv_size, radius, epsilon):
     cloudy_image, mask = splice_cloud(background, source, mask, conv_size, radius, epsilon)
 
     # Save output
-    if not os.path.exists('output_splice/'):
-        os.makedirs('output_splice/')
+    if not os.path.exists('output/'):
+        os.makedirs('output/')
 
     # Convert float32 to uint8 for IPOL
     cloudy_image_8bits = convert_float32_to_uint8(cloudy_image)
@@ -185,12 +185,12 @@ def spliceCloudFromMask(background, source, mask, conv_size, radius, epsilon):
     mask = mask * 255
 
     # Save 8 bits for display in IPOL
-    iio.write('output_splice/cloudy.png', cloudy_image_8bits.astype(np.uint8))
-    iio.write('output_splice/background.png', background_8bits.astype(np.uint8))
-    iio.write('output_splice/mask.png', mask.astype(np.uint8))
-    iio.write('output_splice/source.png', source_8bits.astype(np.uint8))
+    iio.write('output/cloudy.png', cloudy_image_8bits.astype(np.uint8))
+    iio.write('output/background.png', background_8bits.astype(np.uint8))
+    iio.write('output/mask.png', mask.astype(np.uint8))
+    iio.write('output/source.png', source_8bits.astype(np.uint8))
 
     # Save 16 bits for download in IPOL
-    iio.write('output_splice/cloudy_16bits.tif', cloudy_image.astype(np.uint16))
-    iio.write('output_splice/background_16bits.tif', background.astype(np.uint16))
-    iio.write('output_splice/source_16bits.tif', source.astype(np.uint16))
+    iio.write('output/cloudy.tif', cloudy_image.astype(np.uint16))
+    iio.write('output/background.tif', background.astype(np.uint16))
+    iio.write('output/source.tif', source.astype(np.uint16))

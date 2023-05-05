@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2705aa24-22e5-43a8-a08d-4743aabbd3f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/.background.tif.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/.splicing_source.tif.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_generated/.background.png.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_generated/.background.tif.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_generated/cloud.png" beforeDir="false" afterPath="$PROJECT_DIR$/output_generated/cloud.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_generated/cloudy.png" beforeDir="false" afterPath="$PROJECT_DIR$/output_generated/cloudy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_splice/.background_16bits.tif.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_splice/.cloudy_16bits.tif.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_splice/.source_16bits.tif.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_splice/cloudy.png" beforeDir="false" afterPath="$PROJECT_DIR$/output_splice/cloudy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output_splice/source.png" beforeDir="false" afterPath="$PROJECT_DIR$/output_splice/source.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CloudPerlin/CloudPerlin.py" beforeDir="false" afterPath="$PROJECT_DIR$/CloudPerlin/CloudPerlin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splicing_functions/splicing_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/splicing_functions/splicing_functions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681810517254</updated>
       <workItem from="1681810521010" duration="22205000" />
-      <workItem from="1683280073975" duration="304000" />
+      <workItem from="1683280073975" duration="635000" />
     </task>
     <servers />
   </component>
