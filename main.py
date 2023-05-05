@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--epsilon', dest='epsilon', type=float, default=0.01, help="Epsilon")
     parser.add_argument('-o', '--octave', dest='octave', type=int, default=7, help="octave noise parameter")
     parser.add_argument('-r', '--res', dest='res', type=int, default=2, help="res noise parameter")
-    parser.add_argument('-mode', '--mode', dest='mode', type=int, default=1, help="which mode you want to use")
+    parser.add_argument('-mode', '--mode', dest='mode', type=bool, default=0, help="which mode you want to use")
     args = parser.parse_args()
 
     main(args.input_background, args.splicing_source, args.splicing_mask, args.conv_size, args.radius, args.epsilon,
