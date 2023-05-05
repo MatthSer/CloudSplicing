@@ -121,8 +121,8 @@ def spliceCloudFromGenertedMask(input, res, octave):
     cloud, mask = cloud_generation((cloud_resolution_size, cloud_resolution_size), (res, res), octave)
     cloudy, cloud_crop = cloud_copy(u, cloud)
 
-    if not os.path.exists('output_generated/'):
-        os.mkdir('output_generated/')
+    if not os.path.exists('output/'):
+        os.mkdir('output/')
 
     # Rescale image on 8 bits for visualization
     u_8bits = convert_float32_to_uint8(u)

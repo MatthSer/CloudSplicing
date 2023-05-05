@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2705aa24-22e5-43a8-a08d-4743aabbd3f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/output/cloudy.png" beforeDir="false" afterPath="$PROJECT_DIR$/output/cloudy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/source.png" beforeDir="false" afterPath="$PROJECT_DIR$/output/source.png" afterDir="false" />
-    </list>
+    <list default="true" id="2705aa24-22e5-43a8-a08d-4743aabbd3f1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681810517254</updated>
       <workItem from="1681810521010" duration="22205000" />
-      <workItem from="1683280073975" duration="887000" />
+      <workItem from="1683280073975" duration="1132000" />
     </task>
     <servers />
   </component>
