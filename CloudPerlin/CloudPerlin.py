@@ -95,7 +95,7 @@ def convert_float32_to_uint8(img):
     if len(img.shape) > 2:
         rescale = []
         for i in range(img.shape[2]):
-            channel = np.log(img[:, :, i] + 1) / np.percentile(np.log(img[:, :, i] + 1), 99) * 255
+            channel = np.sqrt(img[:, :, i]) / np.percentile(np.sqrt(img[:, :, i]), 99) * 255
             channel[channel > 255] = 255
             rescale.append(channel)
         rescale = np.stack(rescale, axis=2)

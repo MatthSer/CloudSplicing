@@ -149,7 +149,7 @@ def convert_float32_to_uint8(img):
     if len(img.shape) > 2:
         rescale = []
         for i in range(img.shape[2]):
-            channel = np.log(img[:, :, i] + 1) / np.percentile(np.log(img[:, :, i] + 1), 99) * 255
+            channel = np.sqrt(img[:, :, i]) / np.percentile(np.sqrt(img[:, :, i]), 99) * 255
             channel[channel > 255] = 255
             rescale.append(channel)
         rescale = np.stack(rescale, axis=2)
@@ -185,10 +185,10 @@ def spliceCloudFromMask(background, source, mask, conv_size, radius, epsilon):
     mask = mask * 255
 
     # Save 8 bits for display in IPOL
-    iio.write('output/cloudy.png', cloudy_image_8bits.astype(np.uint8))
-    iio.write('output/background.png', background_8bits.astype(np.uint8))
+    iio.write('output/cloudy.png', cloudy_image_8bits)
+    iio.write('output/background.png', background_8bits)
     iio.write('output/mask.png', mask.astype(np.uint8))
-    iio.write('output/source.png', source_8bits.astype(np.uint8))
+    iio.write('output/source.png', source_8bits)
 
     # Save 16 bits for download in IPOL
     iio.write('output/cloudy.tif', cloudy_image.astype(np.uint16))
